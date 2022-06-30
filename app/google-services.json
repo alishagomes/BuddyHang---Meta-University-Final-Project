@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "804143111931",
+    "project_id": "buddyhang-a7605",
+    "storage_bucket": "buddyhang-a7605.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:804143111931:android:5a604ad0cd501a747e5a5e",
+        "android_client_info": {
+          "package_name": "com.example.buddyhang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "804143111931-j3svi11vdtv342fg6t6b1mhj60dqedvb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB35C-GlyMP2TWsyN9tOqZjS3o9SrOVk40"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "804143111931-j3svi11vdtv342fg6t6b1mhj60dqedvb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
