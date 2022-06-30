@@ -16,7 +16,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-/** Handles followers/following
+/**
+ * Handles followers/following
  */
 public class FollowersActivity extends AppCompatActivity {
 
@@ -49,10 +50,9 @@ public class FollowersActivity extends AppCompatActivity {
         recyclerView.setAdapter(userAdapter);
         userIdList = new ArrayList<>();
 
-        // show following list when user looks at following
+        // show either following or followers list
         if(option.equals("Following")){
             getFollowing();
-            // show followers list when user looks at following
         } else if(option.equals("Followers")){
             getFollowers();
 

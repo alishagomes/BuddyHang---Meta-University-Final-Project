@@ -13,7 +13,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
-/** Displays the users a user can follow
+/**
+ * Displays the users a user can follow
  */
 public class FriendsActivity extends AppCompatActivity {
 

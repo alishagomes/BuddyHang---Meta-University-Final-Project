@@ -22,7 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import java.util.List;
-/** Adapter for users
+/**
+ * Adapter for users
  */
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 

@@ -21,7 +21,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-/** Logging in the user on Firebase
+/**
+ * Logging in the user on Firebase
  */
 public class LoginActivity extends AppCompatActivity {
 

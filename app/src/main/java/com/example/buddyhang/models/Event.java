@@ -1,7 +1,8 @@
 package com.example.buddyhang.models;
 
 import java.util.Date;
-/** Represents an event post on BuddyHang
+/**
+ * Represents an event post on BuddyHang
  */
 public class Event {
 

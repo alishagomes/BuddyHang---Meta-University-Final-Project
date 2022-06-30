@@ -9,7 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-/** Gives the user the option to login or signup
+/**
+ * Gives the user the option to login or signup
  */
 public class LaunchActivity extends AppCompatActivity {
 

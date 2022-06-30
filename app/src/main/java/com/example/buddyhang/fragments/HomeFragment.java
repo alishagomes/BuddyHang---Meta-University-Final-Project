@@ -15,7 +15,8 @@ import android.widget.Button;
 import com.example.buddyhang.CreateEventActivity;
 import com.example.buddyhang.R;
 
-/** Allows users to create a new event
+/**
+ * Allows users to create a new event
  * see the events they have been invited to or from the Eventbrite API
  */
 public class HomeFragment extends Fragment {

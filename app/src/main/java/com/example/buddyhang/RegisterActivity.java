@@ -24,7 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
-/** Registering a new user on Firebase
+/**
+ * Registering a new user on Firebase
  */
 public class RegisterActivity extends AppCompatActivity {
 

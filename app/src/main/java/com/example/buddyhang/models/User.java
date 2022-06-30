@@ -1,5 +1,6 @@
 package com.example.buddyhang.models;
-/** Represents a user on BuddyHang
+/**
+ * Represents a user on BuddyHang
  */
 public class User {
 

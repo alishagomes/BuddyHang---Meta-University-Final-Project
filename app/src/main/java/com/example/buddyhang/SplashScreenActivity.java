@@ -5,7 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-/** Displaying the splash screen when app launches
+/**
+ * Displaying the splash screen when app launches
  */
 public class SplashScreenActivity extends AppCompatActivity {
 

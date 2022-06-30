@@ -30,7 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
-/** Displays user information
+/**
+ * Displays user information
  * who they follow
  * bio, profile picture, etc.
  */

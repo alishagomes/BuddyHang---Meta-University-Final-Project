@@ -12,7 +12,8 @@ import android.view.ViewGroup;
 
 import com.example.buddyhang.R;
 
-/** Shows a calendar view of all the events the user accepts
+/**
+ * Shows a calendar view of all the events the user accepts
  */
 public class CalendarFragment extends Fragment {
 

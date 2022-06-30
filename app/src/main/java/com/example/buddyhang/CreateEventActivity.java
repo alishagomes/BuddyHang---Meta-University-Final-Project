@@ -17,7 +17,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Date;
 import java.util.HashMap;
-/** For creating an event
+/**
+ * For creating an event
  */
 public class CreateEventActivity extends AppCompatActivity {
 
@@ -45,7 +46,6 @@ public class CreateEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getBaseContext(), "Event has been created. Check your feed!", Toast.LENGTH_SHORT).show();
-                //savepost();
             }
         });
     }
