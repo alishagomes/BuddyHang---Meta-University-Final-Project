@@ -11,12 +11,12 @@ public class Event {
     private String eventDescription;
     private String eventHost;
     private String eventLocation;
-    private Date eventDate;
+    private String eventDate;
 
     public Event() {
     }
 
-    public Event(String eventId, String eventName, String eventDescription, String eventHost, String eventLocation, Date eventDate) {
+    public Event(String eventId, String eventName, String eventDescription, String eventHost, String eventLocation, String eventDate) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.eventDescription = eventDescription;
@@ -49,7 +49,7 @@ public class Event {
         this.eventLocation = eventLocation;
     }
 
-    public Date getEventDate() {
+    public String getEventDate() {
         return eventDate;
     }
 

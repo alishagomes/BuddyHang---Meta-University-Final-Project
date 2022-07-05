@@ -1,7 +1,9 @@
 package com.example.buddyhang;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavDeepLinkBuilder;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,11 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.buddyhang.fragments.HomeFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Date;
 import java.util.HashMap;
 /**
  * For creating an event
@@ -25,7 +27,6 @@ public class CreateEventActivity extends AppCompatActivity {
     Button create_button;
     EditText eventDescription;
     EditText eventName;
-    Date eventDate;
     EditText eventLocation;
 
     @Override
@@ -40,11 +41,18 @@ public class CreateEventActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View imageView = inflater.inflate(R.layout.my_logo, null);
         actionBar.setCustomView(imageView);
-        create_button = findViewById(R.id.create_button);
-        create_button.setOnClickListener(new View.OnClickListener() {
 
+        // initializing variables
+        eventName = findViewById(R.id.eventName);
+        eventLocation = findViewById(R.id.eventLocation);
+        eventDescription = findViewById(R.id.eventDescription);
+        create_button = findViewById(R.id.create_button);
+
+        // when create is pressed
+        create_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                savepost();
                 Toast.makeText(getBaseContext(), "Event has been created. Check your feed!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -55,8 +63,16 @@ public class CreateEventActivity extends AppCompatActivity {
         String eventId = reference.push().getKey();
         HashMap<String , Object> hashMap = new HashMap<>();
         hashMap.put("eventId" , eventId);
+        hashMap.put("eventName" , eventName.getText().toString());
         hashMap.put("eventDescription" , eventDescription.getText().toString());
+        hashMap.put("eventLocation" , eventLocation.getText().toString());
         hashMap.put("eventHost" , FirebaseAuth.getInstance().getCurrentUser().getUid());
         reference.child(eventId).setValue(hashMap);
+
+        // display confetti here
+
+        // navigate from activity to home fragment here
+
+
     }
 }

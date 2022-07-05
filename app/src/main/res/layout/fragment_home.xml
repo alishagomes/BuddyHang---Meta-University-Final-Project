@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
     tools:context=".FriendsActivity">
 
 
@@ -46,8 +45,5 @@
         android:text="Other Events"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

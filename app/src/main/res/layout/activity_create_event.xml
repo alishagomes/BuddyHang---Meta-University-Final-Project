@@ -27,7 +27,7 @@
 
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/eventName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -41,7 +41,7 @@
         android:text="Description" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/eventDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -56,7 +56,7 @@
         android:text="Date" />
 
     <EditText
-        android:id="@+id/editTextDate"
+        android:id="@+id/eventDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -70,48 +70,15 @@
         android:text="Location" />
 
     <EditText
-        android:id="@+id/editTextDate2"
+        android:id="@+id/eventLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10" />
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins"
-        android:text="Who's Invited" />
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <CheckBox
-            android:id="@+id/simpleCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:fontFamily="@font/poppins"
-            android:text="Followers" />
-
-        <CheckBox
-            android:id="@+id/simpleCheckBox2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:fontFamily="@font/poppins"
-            android:text="Following" />
-
-        <CheckBox
-            android:id="@+id/simpleCheckBox3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:fontFamily="@font/poppins"
-            android:text="Everyone" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        android:orientation="horizontal"/>
 
     <Button
         android:id="@+id/create_button"

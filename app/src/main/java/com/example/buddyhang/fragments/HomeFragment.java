@@ -6,14 +6,28 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.example.buddyhang.CreateEventActivity;
 import com.example.buddyhang.R;
+import com.example.buddyhang.adapters.EventAdapter;
+import com.example.buddyhang.models.Event;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Allows users to create a new event
@@ -22,6 +36,10 @@ import com.example.buddyhang.R;
 public class HomeFragment extends Fragment {
 
     Button create_event;
+    private RecyclerView recycler_view_users_posts;
+    private EventAdapter postAdapter;
+    private List<Event> eventList;
+    private List<String> followingList;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -49,6 +67,75 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+
+
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        recycler_view_users_posts = view.findViewById(R.id.recycler_view_users_posts);
+        recycler_view_users_posts.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        recycler_view_users_posts.setLayoutManager(linearLayoutManager);
+        eventList = new ArrayList<>();
+        postAdapter = new EventAdapter(getContext() , eventList);
+        recycler_view_users_posts.setAdapter(postAdapter);
+
+
+        checkFollowing();
+
+        return view;
+    }
+
+
+    private void readPosts () {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Events");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                eventList.clear();
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Event event = snapshot.getValue(Event.class);
+
+                    for (String id : followingList) {
+                        if (event.getEventHost().equals(id)){
+                            eventList.add(event);
+                        }
+                    }
+                }
+
+                postAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void checkFollowing() {
+        followingList = new ArrayList<>();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Follow")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("following");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                followingList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    followingList.add(snapshot.getKey());
+                }
+                readPosts();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
