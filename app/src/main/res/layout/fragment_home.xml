@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".FriendsActivity">
 
@@ -20,7 +20,9 @@
         android:id="@+id/create_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CREATE" />
+        android:text="CREATE"
+        app:backgroundTint="#b5b5b5"
+        />
 
     <TextView
         android:id="@+id/textView12"
@@ -37,13 +39,6 @@
         android:layout_height="wrap_content"
         android:paddingTop="5dp" />
 
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins"
-        android:text="Other Events"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

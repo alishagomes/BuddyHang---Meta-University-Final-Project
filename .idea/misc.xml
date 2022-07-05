@@ -8,7 +8,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2115" />
         <entry key="app/src/main/res/drawable/round_button.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_create_event.xml" value="0.20701493376294156" />
+        <entry key="app/src/main/res/layout/activity_create_event.xml" value="0.44142960661450403" />
         <entry key="app/src/main/res/layout/activity_followers.xml" value="0.3328804347826087" />
         <entry key="app/src/main/res/layout/activity_friends.xml" value="0.22072871111441342" />
         <entry key="app/src/main/res/layout/activity_launch.xml" value="0.48754119873046875" />
@@ -18,7 +18,7 @@
         <entry key="app/src/main/res/layout/activity_set_preferences.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.20969202898550723" />
         <entry key="app/src/main/res/layout/event.xml" value="0.8087842194930367" />
-        <entry key="app/src/main/res/layout/event_item.xml" value="1.242414657321907" />
+        <entry key="app/src/main/res/layout/event_item.xml" value="0.45899772209567197" />
         <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.28955038319463317" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.4876709664604705" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.5211765834263393" />

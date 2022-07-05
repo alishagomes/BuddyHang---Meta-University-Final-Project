@@ -33,10 +33,7 @@ public class FollowersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_followers);
 
-        // to delete actionbar
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // recycler view with users
         recyclerView = findViewById(R.id.recycler_view);

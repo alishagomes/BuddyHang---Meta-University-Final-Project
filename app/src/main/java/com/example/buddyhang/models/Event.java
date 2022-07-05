@@ -54,7 +54,7 @@ public class Event {
     }
 
     public void setEventDate(String eventDate) {
-        this.eventId = eventDate;
+        this.eventDate = eventDate;
     }
 
     public String getEventDescription() {

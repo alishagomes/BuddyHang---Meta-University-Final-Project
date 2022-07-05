@@ -28,6 +28,7 @@ public class CreateEventActivity extends AppCompatActivity {
     EditText eventDescription;
     EditText eventName;
     EditText eventLocation;
+    EditText eventDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +42,21 @@ public class CreateEventActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View imageView = inflater.inflate(R.layout.my_logo, null);
         actionBar.setCustomView(imageView);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // initializing variables
         eventName = findViewById(R.id.eventName);
         eventLocation = findViewById(R.id.eventLocation);
         eventDescription = findViewById(R.id.eventDescription);
         create_button = findViewById(R.id.create_button);
+        eventDate = findViewById(R.id.eventDate);
 
         // when create is pressed
         create_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 savepost();
-                Toast.makeText(getBaseContext(), "Event has been created. Check your feed!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Event has been created!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -67,6 +70,7 @@ public class CreateEventActivity extends AppCompatActivity {
         hashMap.put("eventDescription" , eventDescription.getText().toString());
         hashMap.put("eventLocation" , eventLocation.getText().toString());
         hashMap.put("eventHost" , FirebaseAuth.getInstance().getCurrentUser().getUid());
+        hashMap.put("eventDate", eventDate.getText().toString());
         reference.child(eventId).setValue(hashMap);
 
         // display confetti here

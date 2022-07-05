@@ -32,9 +32,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     public Context context;
     public List<Event> events;
-    public TextView eventhost;
-    public TextView eventDesc;
-    public TextView location;
+
 
     private FirebaseUser firebaseUser;
 
@@ -45,33 +43,20 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         final Event post = events.get(position);
 
         // setting description
-        if (post.getEventDescription().equals("")){
-            holder.eventDesc.setVisibility(View.GONE);
-        } else {
-            holder.eventDesc.setVisibility(View.VISIBLE);
-            holder.eventDesc.setText(post.getEventDescription());
-        }
+        holder.eventDesc.setText(post.getEventDescription());
 
         // setting location
-        if (post.getEventLocation().equals("")){
-            holder.location.setVisibility(View.GONE);
-        } else {
-            holder.location.setVisibility(View.VISIBLE);
-            holder.location.setText(post.getEventLocation());
-        }
+        holder.location.setText(post.getEventLocation());
 
-        if (post.getEventName().equals("")){
-            holder.eventname.setVisibility(View.GONE);
-        } else {
-            holder.eventname.setVisibility(View.VISIBLE);
-            holder.eventname.setText(post.getEventName());
-        }
+        // setting event name
+        holder.eventname.setText(post.getEventName());
 
+        // setting event date
+        holder.eventDate.setText(post.getEventDate());
 
         host(holder.eventHostPicture , holder.eventhost , holder.eventhost , post.getEventHost());
 
@@ -89,7 +74,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         public ImageView eventHostPicture;
         public TextView eventDesc;
         public TextView location;
-
+        public TextView eventDate;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -99,18 +84,19 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             eventHostPicture = itemView.findViewById(R.id.eventHostPicture);
             eventDesc = itemView.findViewById(R.id.eventDesc);
             location = itemView.findViewById(R.id.location);
+            eventDate = itemView.findViewById(R.id.eventDate);
         }
     }
 
 
-    private void host (final ImageView image_profile , final TextView username , final TextView eventhost , String userid) {
+    private void host (final ImageView eventHostPicture , final TextView username , final TextView eventhost , String userid) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                Picasso.get().load(user.getProfilePicture()).placeholder(R.drawable.ic_baseline_person_24).into(image_profile);
+                Picasso.get().load(user.getProfilePicture()).placeholder(R.drawable.ic_baseline_person_24).into(eventHostPicture);
                 eventhost.setText(user.getName());
             }
             @Override

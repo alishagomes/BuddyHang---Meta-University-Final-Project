@@ -100,7 +100,7 @@
         android:visibility="visible" />
 
     <TextView
-        android:id="@+id/eventdate"
+        android:id="@+id/eventDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="87dp"
@@ -108,13 +108,34 @@
         android:text="Date "
         android:visibility="visible" />
 
-    <TextView
-        android:id="@+id/timestamp"
-        android:layout_width="wrap_content"
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:text="timestamp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        android:layout_marginTop="120dp"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/eventdate"
+            android:layout_centerInParent="false"
+            app:backgroundTint="#65b871"
+            android:text="Accept" />
+
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/button"
+            app:backgroundTint="#bd645b"
+            android:text="Decline" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 
 </RelativeLayout>
