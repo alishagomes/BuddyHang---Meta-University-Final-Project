@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.example.buddyhang.FollowersActivity;
 import com.example.buddyhang.FriendsActivity;
 import com.example.buddyhang.LaunchActivity;
 import com.example.buddyhang.R;
+import com.example.buddyhang.models.Event;
 import com.example.buddyhang.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,6 +32,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+import java.util.List;
+
 /**
  * Displays user information
  * who they follow
@@ -46,7 +50,6 @@ public class ProfileFragment extends Fragment {
     private EditText bio;
     private TextView username;
     private Button updateButton;
-
     private FirebaseUser firebaseUser;
     String id;
 
@@ -59,8 +62,6 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_profile, container, false);
-
-
         image_profile = view.findViewById(R.id.image_profile);
         logout = view.findViewById(R.id.logout);
         followers = view.findViewById(R.id.followers);
@@ -69,13 +70,10 @@ public class ProfileFragment extends Fragment {
         bio = view.findViewById(R.id.bio);
         username = view.findViewById(R.id.username);
         updateButton = view.findViewById(R.id.updateButton);
-
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         id = firebaseUser.getUid();
-
         userInfo();
         getFollowers();
-
         add_friends = view.findViewById(R.id.add_friends);
         add_friends.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +83,6 @@ public class ProfileFragment extends Fragment {
                 getActivity().overridePendingTransition(0, 0);
             }
         });
-
         // for logging out the user
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,8 +94,6 @@ public class ProfileFragment extends Fragment {
 
             }
         });
-
-
         followers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +103,6 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
         following.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,22 +118,16 @@ public class ProfileFragment extends Fragment {
 
 
     private void userInfo() {
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(id);
-
-        reference.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("Users").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (getContext() == null){
                     return;
                 }
-
                 User user = dataSnapshot.getValue(User.class);
-
                 Picasso.get().load(user.getProfilePicture()).placeholder(R.drawable.ic_baseline_person_24).into(image_profile);
                 username.setText(user.getUsername());
                 name.setText(user.getName());
-
                 // updating user bio
                 if (user.getBio() == null) {
                     bio.setText("");
@@ -147,10 +135,8 @@ public class ProfileFragment extends Fragment {
                     update();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }
@@ -160,14 +146,10 @@ public class ProfileFragment extends Fragment {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-
                 HashMap<String , Object> hashMap = new HashMap<>();
                 hashMap.put("bio" , bio.toString());
-                reference.updateChildren(hashMap);
+                FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid()).updateChildren(hashMap);
                 Toast.makeText(getContext(), "Bio has been updated", Toast.LENGTH_SHORT).show();
-
             }
         });
     }
@@ -198,6 +180,7 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
 
 
 

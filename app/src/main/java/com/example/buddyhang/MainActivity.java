@@ -4,13 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-
+import androidx.appcompat.app.ActionBar;
 import com.example.buddyhang.fragments.CalendarFragment;
 import com.example.buddyhang.fragments.HomeFragment;
 import com.example.buddyhang.fragments.ProfileFragment;
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // for actionbar in fragments
-        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

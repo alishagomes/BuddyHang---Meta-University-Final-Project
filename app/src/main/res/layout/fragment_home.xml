@@ -39,6 +39,14 @@
         android:layout_height="wrap_content"
         android:paddingTop="5dp" />
 
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
+        android:text="Find Public Events"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

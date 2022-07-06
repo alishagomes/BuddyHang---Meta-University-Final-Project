@@ -20,6 +20,11 @@
         android:textSize="20dp"
         android:textStyle="bold" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userPosts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -31,6 +36,18 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="20dp"
         android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_user_accepted_events"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/declined_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Declined Events" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

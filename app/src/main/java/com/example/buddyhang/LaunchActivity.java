@@ -1,14 +1,13 @@
 package com.example.buddyhang;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
+
 /**
  * Gives the user the option to login or signup
  */
@@ -22,6 +21,7 @@ public class LaunchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
 
+        // don't show the action bar if we can’t get the action bar
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }

@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ProgressBar;
 
 import com.example.buddyhang.CreateEventActivity;
 import com.example.buddyhang.R;
@@ -37,20 +36,17 @@ public class HomeFragment extends Fragment {
 
     Button create_event;
     private RecyclerView recycler_view_users_posts;
-    private EventAdapter postAdapter;
+    private EventAdapter eventAdapter;
     private List<Event> eventList;
     private List<String> followingList;
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         create_event = view.findViewById(R.id.create_event);
-
         create_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,18 +55,13 @@ public class HomeFragment extends Fragment {
                 getActivity().overridePendingTransition(0, 0);
             }
         });
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
         recycler_view_users_posts = view.findViewById(R.id.recycler_view_users_posts);
         recycler_view_users_posts.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -78,63 +69,48 @@ public class HomeFragment extends Fragment {
         linearLayoutManager.setStackFromEnd(true);
         recycler_view_users_posts.setLayoutManager(linearLayoutManager);
         eventList = new ArrayList<>();
-        postAdapter = new EventAdapter(getContext() , eventList);
-        recycler_view_users_posts.setAdapter(postAdapter);
-
-
-        checkFollowing();
-
+        eventAdapter = new EventAdapter(getContext() , eventList);
+        recycler_view_users_posts.setAdapter(eventAdapter);
+        followingList();
         return view;
     }
 
 
-    private void readPosts () {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Events");
-
-        reference.addValueEventListener(new ValueEventListener() {
+    private void viewEvents () {
+        FirebaseDatabase.getInstance().getReference("Events").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 eventList.clear();
-
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Event event = snapshot.getValue(Event.class);
-
                     for (String id : followingList) {
                         if (event.getEventHost().equals(id)){
                             eventList.add(event);
                         }
                     }
                 }
-
-                postAdapter.notifyDataSetChanged();
+                eventAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }
 
-    private void checkFollowing() {
+    private void followingList() {
         followingList = new ArrayList<>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Follow")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("following");
-
-        reference.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("Follow").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("following").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 followingList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     followingList.add(snapshot.getKey());
                 }
-                readPosts();
+                viewEvents();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }

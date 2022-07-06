@@ -75,7 +75,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
         // display confetti here
 
-        // navigate from activity to home fragment here
+        // navigate from activity to calendar fragment
 
 
     }

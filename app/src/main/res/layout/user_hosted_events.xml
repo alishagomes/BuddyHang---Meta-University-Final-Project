@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:visibility="visible"  >
+    android:layout_margin="5dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="75dp"
@@ -108,34 +107,6 @@
         android:layout_toRightOf="@id/date_text"
         android:text="Date "
         android:visibility="visible" />
-
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:gravity="center_horizontal">
-
-        <Button
-            android:id="@+id/accept_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/eventdate"
-            android:layout_centerInParent="false"
-            android:text="Accept"
-            app:backgroundTint="#65b871" />
-
-
-        <Button
-            android:id="@+id/decline_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/accept_button"
-            android:text="Decline"
-            app:backgroundTint="#bd645b" />
-
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
 </RelativeLayout>

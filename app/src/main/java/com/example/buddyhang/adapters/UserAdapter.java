@@ -29,8 +29,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
     private Context context;
     private List<User> userList;
-    private boolean checkIfFragment;
-
     private FirebaseUser firebaseUser;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -49,11 +47,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         }
     }
 
-    public UserAdapter(Context mContext, List<User> mUsers, boolean isFragment) {
+    public UserAdapter(Context mContext, List<User> mUsers) {
         this.context = mContext;
         this.userList = mUsers;
-        // works differently if fragment
-        this.checkIfFragment = isFragment;
     }
 
     @NonNull
@@ -67,10 +63,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
         final User user = userList.get(position);
         holder.btn_follow.setVisibility(View.VISIBLE);
-
         holder.username.setText(user.getUsername());
         holder.name.setText(user.getName());
         Picasso.get().load(user.getProfilePicture()).placeholder(R.drawable.ic_baseline_person_24).into(holder.image_profile);
@@ -80,21 +74,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
             holder.btn_follow.setVisibility(View.GONE);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkIfFragment) {
-                    SharedPreferences.Editor editor = context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
-                    editor.putString("profileid", user.getId());
-                    editor.apply();
-
-                } else {
-                    Intent intent = new Intent(context, MainActivity.class);
-                    intent.putExtra("publisherid" , user.getId());
-                    context.startActivity(intent);
-                }
-            }
-        });
 
         holder.btn_follow.setOnClickListener(new View.OnClickListener() {
             @Override

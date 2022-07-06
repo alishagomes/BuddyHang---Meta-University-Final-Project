@@ -72,4 +72,9 @@ public class Event {
     public void setEventHost(String eventHost) {
         this.eventHost = eventHost;
     }
+
+    public void setVisibility(int visible) {
+
+    }
+
 }

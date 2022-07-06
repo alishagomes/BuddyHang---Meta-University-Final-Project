@@ -1,10 +1,10 @@
 package com.example.buddyhang;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
-
 import com.example.buddyhang.adapters.UserAdapter;
 import com.example.buddyhang.models.User;
 import com.google.firebase.database.DataSnapshot;
@@ -32,12 +32,11 @@ public class FriendsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view_users);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         usersList = new ArrayList<>();
-        userAdapter = new UserAdapter(this, usersList, true);
+        userAdapter = new UserAdapter(this, usersList);
 
         recyclerView.setAdapter(userAdapter);
         displayUsers();
     }
-
 
     private void displayUsers() {
         FirebaseDatabase.getInstance().getReference().child("Users").addValueEventListener(new ValueEventListener() {
