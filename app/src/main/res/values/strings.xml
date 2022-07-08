@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">BuddyHang</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name = "api_key">9Jeo5x9G0hshdjmf91d4sCXKDFPvVs3h</string>
 </resources>

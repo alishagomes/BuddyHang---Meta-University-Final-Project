@@ -9,14 +9,23 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.buddyhang.CreateEventActivity;
+import com.example.buddyhang.MainActivity;
 import com.example.buddyhang.R;
+import com.example.buddyhang.adapters.ApiRecyclerViewAdapter;
 import com.example.buddyhang.adapters.EventAdapter;
+import com.example.buddyhang.models.ApiEvent;
 import com.example.buddyhang.models.Event;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +33,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +52,13 @@ public class HomeFragment extends Fragment {
     private EventAdapter eventAdapter;
     private List<Event> eventList;
     private List<String> followingList;
+
+    // for api
+    private final String JSON_URL = "https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=9Jeo5x9G0hshdjmf91d4sCXKDFPvVs3h";
+    private JsonArrayRequest request;
+    private RequestQueue requestQueue;
+    private List<ApiEvent> lstApiEvent;
+    RecyclerView ticketmasterEvents;
 
     public HomeFragment() {
     }
@@ -72,7 +92,16 @@ public class HomeFragment extends Fragment {
         eventAdapter = new EventAdapter(getContext() , eventList);
         recycler_view_users_posts.setAdapter(eventAdapter);
         followingList();
+
+        // Creating a list of events from ticketmaster
+        lstApiEvent = new ArrayList<>();
+        // recyclerview that displays ticketmaster events
+        ticketmasterEvents = view.findViewById(R.id.ticketmasterEvents);
+        jsonRequest();
+
         return view;
+
+
     }
 
 
@@ -113,5 +142,48 @@ public class HomeFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+    }
+
+
+    // the following two methods are for the api
+    private void jsonRequest() {
+
+        request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject  = null;
+
+                for (int i = 0; i < response.length(); i++ ) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
+                        ApiEvent event = new ApiEvent();
+                        event.setName(jsonObject.getString("name"));
+                        event.setUrl(jsonObject.getString("url"));
+                        lstApiEvent.add(event);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+                setupRecyclerView(lstApiEvent);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(request) ;
+    }
+
+    private void setupRecyclerView(List<ApiEvent> lstApiEvent) {
+        ApiRecyclerViewAdapter adapter = new ApiRecyclerViewAdapter(getContext(),lstApiEvent) ;
+        ticketmasterEvents.setLayoutManager(new LinearLayoutManager(getContext()));
+        ticketmasterEvents.setAdapter(adapter);
+
     }
 }

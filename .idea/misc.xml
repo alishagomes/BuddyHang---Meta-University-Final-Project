@@ -19,13 +19,16 @@
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.14142456054687505" />
         <entry key="app/src/main/res/layout/activity_set_preferences.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.20969202898550723" />
+        <entry key="app/src/main/res/layout/api_event_items.xml" value="0.34088997218919836" />
         <entry key="app/src/main/res/layout/event.xml" value="0.8087842194930367" />
         <entry key="app/src/main/res/layout/event_item.xml" value="0.45899772209567197" />
+        <entry key="app/src/main/res/layout/eventbrite_event_items.xml" value="0.4961181640625001" />
         <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.31449127197265625" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.31263383297644537" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.5211765834263393" />
         <entry key="app/src/main/res/layout/my_logo.xml" value="0.13120567375886524" />
         <entry key="app/src/main/res/layout/round_button.xml" value="0.11119554204660588" />
+        <entry key="app/src/main/res/layout/ticketmaster_event_item.xml" value="0.5467289719626168" />
         <entry key="app/src/main/res/layout/user_item.xml" value="0.1" />
         <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.1" />
         <entry key="app/src/main/res/menu/search_bar_menu.xml" value="0.1" />
