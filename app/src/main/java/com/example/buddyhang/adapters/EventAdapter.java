@@ -44,6 +44,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         holder.eventname.setText(event.getEventName());
         // setting event date
         holder.eventDate.setText(event.getEventDate());
+        // setting event time
+        holder.eventTime.setText(event.getEventTime());
+
         // setting the event host's information
         host(holder.eventHostPicture, holder.eventhost, event.getEventHost());
         // when the accept button is clicked, it needs to display in the calendar
@@ -80,6 +83,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         public TextView eventDesc;
         public TextView location;
         public TextView eventDate;
+        public TextView eventTime;
         public Button accept_button;
         public Button decline_button;
 
@@ -93,6 +97,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             eventDate = itemView.findViewById(R.id.eventDate);
             accept_button = itemView.findViewById(R.id.accept_button);
             decline_button = itemView.findViewById(R.id.decline_button);
+            eventTime = itemView.findViewById(R.id.eventTime);
         }
     }
 

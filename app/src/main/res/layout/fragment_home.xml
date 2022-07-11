@@ -8,6 +8,13 @@
     tools:context=".FriendsActivity">
 
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
@@ -45,12 +52,14 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins"
         android:text="Find Public Events"
+        android:layout_below="@+id/recycler_view_users_posts"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ticketmasterEvents"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_below="@+id/textView9"
+        android:layout_height="wrap_content" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

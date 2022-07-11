@@ -93,7 +93,6 @@
         android:layout_below="@+id/location_text"
         android:layout_marginStart="80dp"
         android:layout_marginTop="6dp"
-        android:layout_marginBottom="15dp"
         android:autoLink="all"
         android:linksClickable="true"
         android:text="Date: "
@@ -106,6 +105,28 @@
         android:layout_marginTop="87dp"
         android:layout_toRightOf="@id/date_text"
         android:text="Date "
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/event_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/date_text"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="15dp"
+        android:autoLink="all"
+        android:linksClickable="true"
+        android:text="Time: "
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/eventTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="113dp"
+        android:layout_toRightOf="@id/event_time"
+        android:text="Time "
         android:visibility="visible" />
 
 

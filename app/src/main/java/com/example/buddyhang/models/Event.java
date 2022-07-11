@@ -12,8 +12,17 @@ public class Event {
     private String eventHost;
     private String eventLocation;
     private String eventDate;
+    private String eventTime;
 
     public Event() {
+    }
+
+    public String getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(String eventTime) {
+        this.eventTime = eventTime;
     }
 
     public Event(String eventId, String eventName, String eventDescription, String eventHost, String eventLocation, String eventDate) {
@@ -76,5 +85,10 @@ public class Event {
     public void setVisibility(int visible) {
 
     }
+
+
+
+
+
 
 }

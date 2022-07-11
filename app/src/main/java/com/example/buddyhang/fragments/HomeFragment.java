@@ -15,13 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.buddyhang.CreateEventActivity;
-import com.example.buddyhang.MainActivity;
 import com.example.buddyhang.R;
 import com.example.buddyhang.adapters.ApiRecyclerViewAdapter;
 import com.example.buddyhang.adapters.EventAdapter;
@@ -30,11 +31,9 @@ import com.example.buddyhang.models.Event;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -55,7 +54,7 @@ public class HomeFragment extends Fragment {
 
     // for api
     private final String JSON_URL = "https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=9Jeo5x9G0hshdjmf91d4sCXKDFPvVs3h";
-    private JsonArrayRequest request;
+    private JsonObjectRequest request;
     private RequestQueue requestQueue;
     private List<ApiEvent> lstApiEvent;
     RecyclerView ticketmasterEvents;
@@ -144,46 +143,43 @@ public class HomeFragment extends Fragment {
         });
     }
 
-
-    // the following two methods are for the api
     private void jsonRequest() {
 
-        request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                JSONObject jsonObject  = null;
+        request = new JsonObjectRequest
+                (Request.Method.GET, JSON_URL, null, new Response.Listener<JSONObject>() {
 
-                for (int i = 0; i < response.length(); i++ ) {
-                    try {
-                        jsonObject = response.getJSONObject(i);
-                        ApiEvent event = new ApiEvent();
-                        event.setName(jsonObject.getString("name"));
-                        event.setUrl(jsonObject.getString("url"));
-                        lstApiEvent.add(event);
+                    @Override
+                    public void onResponse(JSONObject response) {
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                ApiEvent event = new ApiEvent();
+                                event.setName(response.getJSONObject("_embedded").getJSONArray("events").getJSONObject(i).getString("name"));
+                                event.setUrl(response.getJSONObject("_embedded").getJSONArray("events").getJSONObject(i).getString("url"));
+                                lstApiEvent.add(event);
+                            } catch (JSONException e) {
+                                Log.i("Error",e.toString());
+                            }
+                        }
+                        setupRecyclerView(lstApiEvent);
                     }
+                }, new Response.ErrorListener() {
 
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        
+                    }
+                });
 
-                }
-                setupRecyclerView(lstApiEvent);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
         requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(request) ;
+        requestQueue.add(request);
+
     }
 
     private void setupRecyclerView(List<ApiEvent> lstApiEvent) {
         ApiRecyclerViewAdapter adapter = new ApiRecyclerViewAdapter(getContext(),lstApiEvent) ;
         ticketmasterEvents.setLayoutManager(new LinearLayoutManager(getContext()));
         ticketmasterEvents.setAdapter(adapter);
-
     }
+
 }

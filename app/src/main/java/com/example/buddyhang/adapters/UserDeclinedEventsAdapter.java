@@ -52,6 +52,8 @@ public class UserDeclinedEventsAdapter extends RecyclerView.Adapter<UserDeclined
         holder.eventDate.setText(event.getEventDate());
         // setting the event host's information
         host(holder.eventHostPicture, holder.eventhost , event.getEventHost());
+        // setting event time
+        holder.eventTime.setText(event.getEventTime());
     }
 
     @Override
@@ -66,6 +68,7 @@ public class UserDeclinedEventsAdapter extends RecyclerView.Adapter<UserDeclined
         public TextView eventDesc;
         public TextView location;
         public TextView eventDate;
+        public TextView eventTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,6 +78,7 @@ public class UserDeclinedEventsAdapter extends RecyclerView.Adapter<UserDeclined
             eventDesc = itemView.findViewById(R.id.eventDesc);
             location = itemView.findViewById(R.id.location);
             eventDate = itemView.findViewById(R.id.eventDate);
+            eventTime = itemView.findViewById(R.id.eventTime);
         }
     }
 
