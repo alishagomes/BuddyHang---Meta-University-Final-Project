@@ -10,8 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.buddyhang.R;
-import com.example.buddyhang.models.Event;
+import com.example.buddyhang.models.PrivateEvent;
 import com.example.buddyhang.models.User;
+import com.google.android.gms.common.util.ArrayUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -19,23 +20,24 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.ramotion.foldingcell.FoldingCell;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
 
     public Context context;
-    public List<Event> events;
+    public List<PrivateEvent> events;
     public int event_position;
 
-    public EventAdapter(Context context, List<Event> events) {
+    public EventAdapter(Context context, List<PrivateEvent> events) {
         this.context = context;
         this.events = events;
     }
 
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        final Event event = events.get(position);
+        final PrivateEvent event = events.get(position);
         // setting description
         holder.eventDesc.setText(event.getEventDescription());
         // setting location
@@ -57,6 +59,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 // makes the event disappear in feed after click
                 event_position = holder.getAdapterPosition();
                 clear(event_position);
+
             }
         });
 
@@ -69,6 +72,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 clear(event_position);
             }
         });
+
+
+        // get our folding cell
+
     }
 
     @Override
@@ -86,7 +93,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         public TextView eventTime;
         public Button accept_button;
         public Button decline_button;
-
+        public FoldingCell fc;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             eventname = itemView.findViewById(R.id.eventname);
@@ -98,6 +105,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             accept_button = itemView.findViewById(R.id.accept_button);
             decline_button = itemView.findViewById(R.id.decline_button);
             eventTime = itemView.findViewById(R.id.eventTime);
+            fc = (FoldingCell) itemView.findViewById(R.id.folding_cell);
+
+            // attach click listener to folding cell
+            fc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    fc.toggle(false);
+                }
+            });
+
         }
     }
 

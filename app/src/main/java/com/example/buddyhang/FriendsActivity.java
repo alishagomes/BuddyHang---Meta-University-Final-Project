@@ -2,6 +2,8 @@ package com.example.buddyhang;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.dynamicanimation.animation.DynamicAnimation;
+import androidx.dynamicanimation.animation.FlingAnimation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
@@ -35,10 +37,16 @@ public class FriendsActivity extends AppCompatActivity {
         userAdapter = new UserAdapter(this, usersList);
 
         recyclerView.setAdapter(userAdapter);
+
         displayUsers();
     }
 
     private void displayUsers() {
+        FlingAnimation fling = new FlingAnimation(recyclerView, DynamicAnimation.SCROLL_Y);
+        fling.setStartVelocity(2).setMinValue(0)
+                .setFriction(1.1f)
+                .start();
+
         FirebaseDatabase.getInstance().getReference().child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

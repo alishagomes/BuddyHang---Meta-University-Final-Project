@@ -1,14 +1,14 @@
 package com.example.buddyhang.models;
 
-public class ApiEvent {
+public class PublicEvent {
 
     private String name;
     private String url;
 
-    public ApiEvent() {
+    public PublicEvent() {
     }
 
-    public ApiEvent(String name, String url) {
+    public PublicEvent(String name, String url) {
         this.name = name;
         this.url = url;
     }

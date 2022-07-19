@@ -4,7 +4,7 @@ import java.util.Date;
 /**
  * Represents an event post on BuddyHang
  */
-public class Event {
+public class PrivateEvent {
 
     private String eventId;
     private String eventName;
@@ -14,7 +14,7 @@ public class Event {
     private String eventDate;
     private String eventTime;
 
-    public Event() {
+    public PrivateEvent() {
     }
 
     public String getEventTime() {
@@ -25,7 +25,7 @@ public class Event {
         this.eventTime = eventTime;
     }
 
-    public Event(String eventId, String eventName, String eventDescription, String eventHost, String eventLocation, String eventDate) {
+    public PrivateEvent(String eventId, String eventName, String eventDescription, String eventHost, String eventLocation, String eventDate) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.eventDescription = eventDescription;

@@ -4,25 +4,22 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.example.buddyhang.models.ApiEvent;
+import com.example.buddyhang.models.PublicEvent;
 import com.example.buddyhang.R;
 
 import java.util.List;
 
-public class ApiRecyclerViewAdapter extends RecyclerView.Adapter<ApiRecyclerViewAdapter.MyViewHolder> {
+public class PublicEventRecyclerViewAdapter extends RecyclerView.Adapter<PublicEventRecyclerViewAdapter.MyViewHolder> {
 
     private Context context;
-    private List<ApiEvent> events;
+    private List<PublicEvent> events;
 
-    public ApiRecyclerViewAdapter(Context context, List<ApiEvent> events) {
+    public PublicEventRecyclerViewAdapter(Context context, List<PublicEvent> events) {
         this.context = context;
         this.events = events;
     }

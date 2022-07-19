@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 import com.example.buddyhang.adapters.UserDeclinedEventsAdapter;
-import com.example.buddyhang.models.Event;
+import com.example.buddyhang.models.PrivateEvent;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +22,7 @@ public class DeclinedEventsActivity extends AppCompatActivity {
 
     private RecyclerView recycler_view_declined_events;
     private UserDeclinedEventsAdapter userDeclinedEventsAdapter;
-    private List<Event> declinedEventsList;
+    private List<PrivateEvent> declinedEventsList;
     private List<String> declinedEvents;
 
     @Override
@@ -58,7 +58,7 @@ public class DeclinedEventsActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         declinedEventsList.clear();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Event event = snapshot.getValue(Event.class);
+                            PrivateEvent event = snapshot.getValue(PrivateEvent.class);
                             for (String id : declinedEvents){
                                 if (event.getEventId().equals(id)){
                                     declinedEventsList.add(event);

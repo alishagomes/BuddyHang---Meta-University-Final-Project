@@ -1,11 +1,15 @@
 package com.example.buddyhang.fragments;
 
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,26 +23,30 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.buddyhang.CreateEventActivity;
 import com.example.buddyhang.R;
-import com.example.buddyhang.adapters.ApiRecyclerViewAdapter;
+import com.example.buddyhang.adapters.PublicEventRecyclerViewAdapter;
 import com.example.buddyhang.adapters.EventAdapter;
-import com.example.buddyhang.models.ApiEvent;
-import com.example.buddyhang.models.Event;
+import com.example.buddyhang.models.PublicEvent;
+import com.example.buddyhang.models.PrivateEvent;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.ramotion.foldingcell.FoldingCell;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 /**
  * Allows users to create a new event
@@ -49,16 +57,15 @@ public class HomeFragment extends Fragment {
     Button create_event;
     private RecyclerView recycler_view_users_posts;
     private EventAdapter eventAdapter;
-    private List<Event> eventList;
+    private List<PrivateEvent> eventList;
     private List<String> followingList;
 
     // for api
     private final String JSON_URL = "https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=9Jeo5x9G0hshdjmf91d4sCXKDFPvVs3h";
     private JsonObjectRequest request;
     private RequestQueue requestQueue;
-    private List<ApiEvent> lstApiEvent;
+    private List<PublicEvent> lstApiEvent;
     RecyclerView ticketmasterEvents;
-
     public HomeFragment() {
     }
 
@@ -82,21 +89,83 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         recycler_view_users_posts = view.findViewById(R.id.recycler_view_users_posts);
-        recycler_view_users_posts.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
         recycler_view_users_posts.setLayoutManager(linearLayoutManager);
         eventList = new ArrayList<>();
         eventAdapter = new EventAdapter(getContext() , eventList);
         recycler_view_users_posts.setAdapter(eventAdapter);
         followingList();
 
+
         // Creating a list of events from ticketmaster
         lstApiEvent = new ArrayList<>();
         // recyclerview that displays ticketmaster events
         ticketmasterEvents = view.findViewById(R.id.ticketmasterEvents);
         jsonRequest();
+
+
+        String deletedPost = null;
+
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+
+                return false;
+            }
+
+            PrivateEvent deletedEvent = null;
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+                int position = viewHolder.getAdapterPosition();
+                switch (direction) {
+                    case ItemTouchHelper.LEFT:
+                        deletedEvent = eventList.get(position);
+                        eventList.remove(position);
+                        eventAdapter.notifyItemRemoved(position);
+                        Snackbar.make(recycler_view_users_posts,deletedEvent.getEventName() + " was declined.",Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                eventList.add(position,deletedEvent);
+                                eventAdapter.notifyItemInserted(position);
+
+                            }
+                        }).show();
+                        break;
+                    case ItemTouchHelper.RIGHT:
+                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                        deletedEvent = eventList.get(position);
+                        FirebaseDatabase.getInstance().getReference().child("Accepts").child(firebaseUser.getUid()).child(deletedEvent.getEventId()).setValue(true);
+                        eventList.remove(position);
+                        eventAdapter.notifyItemRemoved(position);
+                        Snackbar.make(recycler_view_users_posts,deletedEvent.getEventName() + " was accepted.",Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                FirebaseDatabase.getInstance().getReference().child("Accepts").child(firebaseUser.getUid()).child(deletedEvent.getEventId()).setValue(true);
+                                eventList.add(position,deletedEvent);
+                                eventAdapter.notifyItemInserted(position);
+                            }
+                        }).show();
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                new RecyclerViewSwipeDecorator.Builder(getContext(),c,recyclerView,viewHolder,dX,dY,actionState,isCurrentlyActive)
+                        .addSwipeLeftBackgroundColor(ContextCompat.getColor(getContext(),R.color.red))
+                        .addSwipeLeftActionIcon(R.drawable.ic_baseline_delete_24)
+                        .addSwipeRightBackgroundColor(ContextCompat.getColor(getContext(),R.color.green))
+                        .addSwipeRightActionIcon(R.drawable.ic_baseline_check_circle_outline_24)
+                        .create()
+                        .decorate();
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recycler_view_users_posts);
 
         return view;
 
@@ -110,7 +179,7 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 eventList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Event event = snapshot.getValue(Event.class);
+                    PrivateEvent event = snapshot.getValue(PrivateEvent.class);
                     for (String id : followingList) {
                         if (event.getEventHost().equals(id)){
                             eventList.add(event);
@@ -153,7 +222,7 @@ public class HomeFragment extends Fragment {
 
                         for (int i = 0; i < response.length(); i++) {
                             try {
-                                ApiEvent event = new ApiEvent();
+                                PublicEvent event = new PublicEvent();
                                 event.setName(response.getJSONObject("_embedded").getJSONArray("events").getJSONObject(i).getString("name"));
                                 event.setUrl(response.getJSONObject("_embedded").getJSONArray("events").getJSONObject(i).getString("url"));
                                 lstApiEvent.add(event);
@@ -167,7 +236,7 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        
+
                     }
                 });
 
@@ -176,8 +245,8 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void setupRecyclerView(List<ApiEvent> lstApiEvent) {
-        ApiRecyclerViewAdapter adapter = new ApiRecyclerViewAdapter(getContext(),lstApiEvent) ;
+    private void setupRecyclerView(List<PublicEvent> lstApiEvent) {
+        PublicEventRecyclerViewAdapter adapter = new PublicEventRecyclerViewAdapter(getContext(),lstApiEvent) ;
         ticketmasterEvents.setLayoutManager(new LinearLayoutManager(getContext()));
         ticketmasterEvents.setAdapter(adapter);
     }

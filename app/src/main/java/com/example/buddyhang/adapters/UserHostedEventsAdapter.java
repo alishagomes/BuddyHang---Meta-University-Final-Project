@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.buddyhang.R;
-import com.example.buddyhang.models.Event;
+import com.example.buddyhang.models.PrivateEvent;
 import com.example.buddyhang.models.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,9 +23,9 @@ import java.util.List;
 public class UserHostedEventsAdapter extends RecyclerView.Adapter<UserHostedEventsAdapter.ViewHolder>{
 
     private Context context;
-    private List<Event> eventList;
+    private List<PrivateEvent> eventList;
 
-    public UserHostedEventsAdapter(Context context, List<Event> eventList) {
+    public UserHostedEventsAdapter(Context context, List<PrivateEvent> eventList) {
         this.context = context;
         this.eventList = eventList;
     }
@@ -39,7 +39,7 @@ public class UserHostedEventsAdapter extends RecyclerView.Adapter<UserHostedEven
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final Event event = eventList.get(position);
+        final PrivateEvent event = eventList.get(position);
         // setting description
         holder.eventDesc.setText(event.getEventDescription());
         // setting location

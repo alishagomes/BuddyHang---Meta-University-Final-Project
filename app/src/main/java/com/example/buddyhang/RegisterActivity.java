@@ -2,6 +2,9 @@ package com.example.buddyhang;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -76,6 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 Intent i = new Intent(RegisterActivity.this, MainActivity.class);
                                 startActivity(i);
                                 finish();
+
                             }
                     });
         }

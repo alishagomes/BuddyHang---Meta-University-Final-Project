@@ -1,24 +1,20 @@
 package com.example.buddyhang;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavDeepLinkBuilder;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
-import com.example.buddyhang.fragments.HomeFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -72,7 +68,10 @@ public class CreateEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 savepost();
-                Toast.makeText(getBaseContext(), "Event has been created!", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(CreateEventActivity.this , SuccessfulEventCreationActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.page_animation1, R.anim.page_animation2);
+
             }
         });
     }
@@ -111,37 +110,37 @@ public class CreateEventActivity extends AppCompatActivity {
 
     private String setDate(int day, int month, int year)
     {
-         eventDate = getMonth(month) + " " + day + " " + year;
+         eventDate = day + " " + getMonth(month) + " " + year;
          return eventDate;
     }
 
     private String getMonth(int month)
     {
         if(month == 1)
-            return "JAN";
+            return "January";
         if(month == 2)
-            return "FEB";
+            return "February";
         if(month == 3)
-            return "MAR";
+            return "March";
         if(month == 4)
-            return "APR";
+            return "April";
         if(month == 5)
-            return "MAY";
+            return "May";
         if(month == 6)
-            return "JUN";
+            return "June";
         if(month == 7)
-            return "JUL";
+            return "July";
         if(month == 8)
-            return "AUG";
+            return "August";
         if(month == 9)
-            return "SEP";
+            return "September";
         if(month == 10)
-            return "OCT";
+            return "October";
         if(month == 11)
-            return "NOV";
+            return "November";
         if(month == 12)
-            return "DEC";
-        return "JAN";
+            return "December";
+        return "January";
     }
 
     private void savepost() {

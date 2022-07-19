@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.buddyhang.R;
-import com.example.buddyhang.models.Event;
+import com.example.buddyhang.models.PrivateEvent;
 import com.example.buddyhang.models.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,9 +22,9 @@ import java.util.List;
 public class UserAcceptedEventsAdapter extends RecyclerView.Adapter<UserAcceptedEventsAdapter.ViewHolder>{
 
     private Context context;
-    private List<Event> eventList;
+    private List<PrivateEvent> eventList;
 
-    public UserAcceptedEventsAdapter(Context context, List<Event> eventList) {
+    public UserAcceptedEventsAdapter(Context context, List<PrivateEvent> eventList) {
         this.context = context;
         this.eventList = eventList;
     }
@@ -38,7 +38,7 @@ public class UserAcceptedEventsAdapter extends RecyclerView.Adapter<UserAccepted
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final Event event = eventList.get(position);
+        final PrivateEvent event = eventList.get(position);
         // setting description
         holder.eventDesc.setText(event.getEventDescription());
         // setting location
@@ -51,6 +51,8 @@ public class UserAcceptedEventsAdapter extends RecyclerView.Adapter<UserAccepted
         host(holder.eventHostPicture, holder.eventhost, event.getEventHost());
         // setting event time
         holder.eventTime.setText(event.getEventTime());
+
+
     }
 
     @Override
