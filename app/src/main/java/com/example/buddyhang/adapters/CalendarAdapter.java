@@ -57,6 +57,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position)
     {
         holder.day.setText(days.get(position));
+        Log.i("Alisha","day60"+holder.day.getText());
         acceptedEvents = new ArrayList<>();
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase.getInstance().getReference().child("Accepts").child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
@@ -83,20 +84,21 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
 
                                     Log.i("Alisha","calendar event month"+month);
                                     Log.i("Alisha","calendar event year"+year);
+                                    Log.i("Alisha","day86"+holder.day.getText());
                                     if (eventMonth.compareToIgnoreCase(month) == 0 && eventYear.compareToIgnoreCase(year) == 0) {
                                         eventDaysSet.add(eventDay);
                                     }
                                 }
-                                Log.i("Alisha","days"+days);
-                                Log.i("Alisha","days in set"+eventDaysSet.toString());
-                                String[] eventDateArray = event.getEventDate().trim().split(" ");
-                                String eventDay = eventDateArray[0];
-                                if (eventDaysSet.contains(eventDay)) {
-                                    Log.i("Alisha","day"+holder.day);
-                                    holder.day.setTextColor(Color.RED);
-                                }
+
                             }
                         }
+                        Log.i("Alisha","days in set"+eventDaysSet.toString());
+                        Log.i("Alisha","day94"+holder.day.getText());
+                        if (eventDaysSet.contains(holder.day.getText())) {
+                            holder.day.setTextColor(Color.RED);
+                            Log.i("Alisha","day97"+holder.day.getText());
+                        }
+
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {

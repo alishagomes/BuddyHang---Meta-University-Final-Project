@@ -20,4 +20,10 @@
         android:title="Calendar"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/action_notification"
+        android:icon="@drawable/ic_baseline_notifications_24"
+        android:title="Notification"
+        app:showAsAction="always" />
+
 </menu>

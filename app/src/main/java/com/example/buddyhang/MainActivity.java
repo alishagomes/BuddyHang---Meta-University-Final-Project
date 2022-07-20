@@ -13,6 +13,7 @@ import androidx.appcompat.app.ActionBar;
 
 import com.example.buddyhang.fragments.CalendarFragment;
 import com.example.buddyhang.fragments.HomeFragment;
+import com.example.buddyhang.fragments.NotificationsFragment;
 import com.example.buddyhang.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -47,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.action_calendar:
                         fragment = new CalendarFragment();
+                        break;
+                    case R.id.action_notification:
+                        fragment = new NotificationsFragment();
                         break;
                     default:
                         fragment = new HomeFragment();

@@ -17,7 +17,7 @@
             android:id="@+id/cell_content_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_green_dark"
+            android:background="#E1E1E1"
             android:visibility="gone">
 
 
@@ -119,7 +119,7 @@
             android:id="@+id/cell_title_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_dark">
+            android:background="#C6C6C6">
 
             <ImageView
                 android:id="@+id/eventHostPicture"
