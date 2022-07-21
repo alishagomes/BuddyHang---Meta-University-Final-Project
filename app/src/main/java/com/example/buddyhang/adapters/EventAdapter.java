@@ -1,6 +1,11 @@
 package com.example.buddyhang.adapters;
-
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.graphics.Color;
+import android.media.metrics.Event;
+import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,11 +13,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.buddyhang.MainActivity;
 import com.example.buddyhang.R;
 import com.example.buddyhang.models.PrivateEvent;
 import com.example.buddyhang.models.User;
-import com.google.android.gms.common.util.ArrayUtils;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ramotion.foldingcell.FoldingCell;
 import com.squareup.picasso.Picasso;
+import java.util.HashMap;
 import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
@@ -36,7 +47,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     }
 
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        final String hostId = events.get(position).getEventHost();
+        final String userAcceptId = currentUser.getUid();
+        final String eventName = events.get(position).getEventName();
         final PrivateEvent event = events.get(position);
         // setting description
         holder.eventDesc.setText(event.getEventDescription());
@@ -55,25 +70,37 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         holder.accept_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseDatabase.getInstance().getReference().child("Accepts").child(firebaseUser.getUid()).child(event.getEventId()).setValue(true);
+                FirebaseDatabase.getInstance().getReference().child("Accepts").child(currentUser.getUid()).child(event.getEventId()).setValue(true);
                 // makes the event disappear in feed after click
                 event_position = holder.getAdapterPosition();
                 clear(event_position);
 
+                // when the accept button is clicked, this sends a notification to the user
+                addNotification(hostId,userAcceptId,eventName);
+
+                // set the notification content
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.ic_baseline_notification_important_24)
+                        .setContentTitle("Accepted Event Notification")
+                        .setContentText(userAcceptId + " has accepted your event")
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+                // show the notification
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+                // notificationId is a unique int for each notification that you must define
+                notificationManager.notify(0, builder.build());
             }
         });
 
         holder.decline_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseDatabase.getInstance().getReference().child("Declines").child(firebaseUser.getUid()).child(event.getEventId()).setValue(true);
+                FirebaseDatabase.getInstance().getReference().child("Declines").child(currentUser.getUid()).child(event.getEventId()).setValue(true);
                 // makes the event disappear in feed after click
                 event_position = holder.getAdapterPosition();
                 clear(event_position);
             }
         });
-
-
         // get our folding cell
 
     }
@@ -140,9 +167,35 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         return new EventAdapter.ViewHolder(view);
     }
 
+
     public void clear (int event_position) {
         events.remove(event_position);
         notifyDataSetChanged();
+    }
+
+
+    private void addNotification(String hostId, String userAcceptId, String eventName) {
+        String timestamp = "" + System.currentTimeMillis();
+        HashMap<Object, String> hashMap = new HashMap<>();
+        hashMap.put("hostId",hostId);
+        hashMap.put("timestamp",timestamp);
+        hashMap.put("userAcceptId",userAcceptId);
+        hashMap.put("eventName",eventName);
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference.child(hostId).child("notifications").child(timestamp).setValue(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
     }
 
 }
