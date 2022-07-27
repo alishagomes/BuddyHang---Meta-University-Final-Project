@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
+public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolderAdapter>
 {
     private final ArrayList<String> days;
     private final OnItemListener onItemListener;
@@ -39,13 +39,13 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
 
     @NonNull
     @Override
-    public CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    public CalendarViewHolderAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.calendar_item, parent, false);
         view.getLayoutParams().height = (int) (parent.getHeight() * 0.12);
 
-        return new CalendarViewHolder(view, onItemListener);
+        return new CalendarViewHolderAdapter(view, onItemListener);
     }
 
     public interface OnItemListener
@@ -54,10 +54,9 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull CalendarViewHolderAdapter holder, int position)
     {
         holder.day.setText(days.get(position));
-        Log.i("Alisha","day60"+holder.day.getText());
         acceptedEvents = new ArrayList<>();
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase.getInstance().getReference().child("Accepts").child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
@@ -82,9 +81,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
                                     String eventMonth = eventDateArray[1];
                                     String eventYear = eventDateArray[2];
 
-                                    Log.i("Alisha","calendar event month"+month);
-                                    Log.i("Alisha","calendar event year"+year);
-                                    Log.i("Alisha","day86"+holder.day.getText());
                                     if (eventMonth.compareToIgnoreCase(month) == 0 && eventYear.compareToIgnoreCase(year) == 0) {
                                         eventDaysSet.add(eventDay);
                                     }
@@ -92,11 +88,8 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
 
                             }
                         }
-                        Log.i("Alisha","days in set"+eventDaysSet.toString());
-                        Log.i("Alisha","day94"+holder.day.getText());
                         if (eventDaysSet.contains(holder.day.getText())) {
                             holder.day.setTextColor(Color.RED);
-                            Log.i("Alisha","day97"+holder.day.getText());
                         }
 
                     }

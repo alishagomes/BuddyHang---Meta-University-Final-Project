@@ -1,10 +1,5 @@
 package com.example.buddyhang.adapters;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Context;
-import android.graphics.Color;
-import android.media.metrics.Event;
-import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.buddyhang.MainActivity;
 import com.example.buddyhang.R;
 import com.example.buddyhang.models.PrivateEvent;
 import com.example.buddyhang.models.User;
@@ -187,13 +180,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-
+                        Log.i("Notification", "Notification information saved on Firebase");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
+                        Log.i("Notification", "Notification information not saved on Firebase");
                     }
                 });
     }

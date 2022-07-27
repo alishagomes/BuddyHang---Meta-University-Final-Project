@@ -4,19 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context=".SplashScreenActivity">
+    tools:context=".activities.SplashScreenActivity"
+    android:background="#F0EBE3">
 
     <pl.droidsonroids.gif.GifImageView
-        android:layout_width="150dp"
-        android:layout_height="200dp"
+        android:id="@+id/gifImageView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:scaleType="centerInside"
-        android:src="@drawable/splash_screen"
+        android:src="@drawable/profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.274" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

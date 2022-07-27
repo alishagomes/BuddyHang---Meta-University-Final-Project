@@ -45,6 +45,7 @@
         android:id="@+id/btn_follow"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
+        android:textColor="#F1F1F1"
         android:background="@drawable/round_button"
         android:visibility="gone"/>
 

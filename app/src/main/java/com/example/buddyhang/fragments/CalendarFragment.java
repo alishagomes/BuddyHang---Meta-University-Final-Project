@@ -3,6 +3,8 @@ package com.example.buddyhang.fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.buddyhang.DeclinedEventsActivity;
+import com.example.buddyhang.controllers.DeclinedEventsController;
 import com.example.buddyhang.R;
 import com.example.buddyhang.adapters.CalendarAdapter;
 import com.example.buddyhang.adapters.UserAcceptedEventsAdapter;
@@ -35,7 +37,6 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -63,6 +64,22 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // This callback will only be called when MyFragment is at least Started.
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button event
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
+        // The callback can be enabled or disabled here or in handleOnBackPressed()
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
@@ -72,7 +89,7 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
             @Override
             public void onClick(View v) {
                 // navigate to the declinedEvents activity
-                Intent i = new Intent(getActivity(), DeclinedEventsActivity.class);
+                Intent i = new Intent(getActivity(), DeclinedEventsController.class);
                 startActivity(i);
                 ((Activity) getActivity()).overridePendingTransition(0, 0);
             }
@@ -169,11 +186,8 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             PrivateEvent event = snapshot.getValue(PrivateEvent.class);
                             for (String id : acceptedEvents) {
-                               // Log.i("Event info ", "event date:" + event.getEventDate());
                                 if (event.getEventId().equals(id)) {
                                     userAcceptedEventsList.add(event);
-                                   // Log.i("Event info ", "event date:" + event.getEventDate());
-
                                 }
                             }
                         }

@@ -6,7 +6,9 @@
     android:layout_margin="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
+
+
 
     <FrameLayout
         android:id="@+id/flContainer"
@@ -16,10 +18,16 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
+        app:itemIconTint="@drawable/bottom_navigation_color_selector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
-        app:menu="@menu/bottom_navigation" />
+        android:background="@drawable/bottom_navigation_background"
+        android:elevation="8dp"
+        android:layout_marginBottom="10dp"
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/bottom_navigation"/>
 
 </RelativeLayout>

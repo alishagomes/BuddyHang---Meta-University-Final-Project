@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".LoginActivity"
-    android:padding="12dp">
+    tools:context=".activities.LoginActivity"
+    android:padding="40dp">
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins"
-        android:gravity="center_horizontal"
+        android:gravity="center_horizontal|top"
         android:text="Login to Your Account"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#000000" />
@@ -25,20 +25,6 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins"
         android:text="We're glad to see you again!" />
-
-
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="150dp"
-        android:layout_height="200dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/wave"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.274" />
-
 
     <EditText
         android:layout_width="match_parent"

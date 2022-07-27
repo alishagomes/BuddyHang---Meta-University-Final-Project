@@ -15,9 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.buddyhang.FollowersActivity;
-import com.example.buddyhang.FriendsActivity;
-import com.example.buddyhang.LaunchActivity;
+import com.example.buddyhang.controllers.FollowersController;
+import com.example.buddyhang.controllers.DisplayFriendsController;
+import com.example.buddyhang.activities.LaunchActivity;
 import com.example.buddyhang.R;
 import com.example.buddyhang.models.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -74,7 +74,7 @@ public class ProfileFragment extends Fragment {
         add_friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), FriendsActivity.class);
+                Intent i = new Intent(getActivity(), DisplayFriendsController.class);
                 startActivity(i);
                 getActivity().overridePendingTransition(0, 0);
             }
@@ -93,7 +93,7 @@ public class ProfileFragment extends Fragment {
         followers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext() , FollowersActivity.class);
+                Intent intent = new Intent(getContext() , FollowersController.class);
                 intent.putExtra("id" , id);
                 intent.putExtra("title" , "Followers");
                 startActivity(intent);
@@ -102,7 +102,7 @@ public class ProfileFragment extends Fragment {
         following.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), FollowersActivity.class);
+                Intent intent = new Intent(getContext(), FollowersController.class);
                 intent.putExtra("id", id);
                 intent.putExtra("title", "Following");
                 startActivity(intent);

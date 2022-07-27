@@ -93,6 +93,7 @@ tools:context=".fragments.ProfileFragment">
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/round_button"
                 android:fontFamily="@font/poppins"
+                android:textColor="#F1F1F1"
                 android:text="Update" />
 
             <TextView
@@ -164,6 +165,7 @@ tools:context=".fragments.ProfileFragment">
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/round_button"
                 android:fontFamily="@font/poppins"
+                android:textColor="#F1F1F1"
                 android:text="Add Friends" />
 
             <TextView
@@ -188,6 +190,7 @@ tools:context=".fragments.ProfileFragment">
                 android:paddingTop="0dp"
                 android:paddingRight="0dp"
                 android:paddingBottom="0dp"
+                android:textColor="#F1F1F1"
                 android:text="Logout"
                 android:textSize="14sp"
                 app:iconPadding="20dp" />

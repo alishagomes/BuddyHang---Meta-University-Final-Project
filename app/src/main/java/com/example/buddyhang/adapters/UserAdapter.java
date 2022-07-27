@@ -1,7 +1,5 @@
 package com.example.buddyhang.adapters;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.buddyhang.MainActivity;
 import com.example.buddyhang.R;
 import com.example.buddyhang.models.User;
 import com.google.firebase.auth.FirebaseAuth;

@@ -2,7 +2,6 @@ package com.example.buddyhang.fragments;
 
 import android.content.Intent;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,9 +24,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.buddyhang.CreateEventActivity;
+import com.example.buddyhang.controllers.NewEventController;
 import com.example.buddyhang.R;
-import com.example.buddyhang.adapters.PublicEventRecyclerViewAdapter;
+import com.example.buddyhang.adapters.PublicEventViewHolderAdapter;
 import com.example.buddyhang.adapters.EventAdapter;
 import com.example.buddyhang.models.PublicEvent;
 import com.example.buddyhang.models.PrivateEvent;
@@ -38,7 +37,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.ramotion.foldingcell.FoldingCell;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -76,7 +74,7 @@ public class HomeFragment extends Fragment {
         create_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), CreateEventActivity.class);
+                Intent i = new Intent(getActivity(), NewEventController.class);
                 startActivity(i);
                 getActivity().overridePendingTransition(0, 0);
             }
@@ -246,7 +244,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupRecyclerView(List<PublicEvent> lstApiEvent) {
-        PublicEventRecyclerViewAdapter adapter = new PublicEventRecyclerViewAdapter(getContext(),lstApiEvent) ;
+        PublicEventViewHolderAdapter adapter = new PublicEventViewHolderAdapter(getContext(),lstApiEvent) ;
         ticketmasterEvents.setLayoutManager(new LinearLayoutManager(getContext()));
         ticketmasterEvents.setAdapter(adapter);
     }

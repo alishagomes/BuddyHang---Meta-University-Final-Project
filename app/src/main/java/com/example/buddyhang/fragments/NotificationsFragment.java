@@ -60,7 +60,6 @@ public class NotificationsFragment extends Fragment {
                     notifications.add(model);
                 }
                 notificationAdapter = new NotificationAdapter(getContext(),notifications);
-                Log.i("Notification","notifications"+notifications);
                 notificationRecyclerView.setAdapter(notificationAdapter);
             }
 
