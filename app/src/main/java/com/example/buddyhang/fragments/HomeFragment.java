@@ -223,6 +223,8 @@ public class HomeFragment extends Fragment {
                                 PublicEvent event = new PublicEvent();
                                 event.setName(response.getJSONObject("_embedded").getJSONArray("events").getJSONObject(i).getString("name"));
                                 event.setUrl(response.getJSONObject("_embedded").getJSONArray("events").getJSONObject(i).getString("url"));
+                                // getting the image url
+                                event.setImageUrl(response.getJSONObject("_embedded").getJSONArray("events").getJSONObject(i).getJSONArray("images").getJSONObject(i).getString("url"));
                                 lstApiEvent.add(event);
                             } catch (JSONException e) {
                                 Log.i("Error",e.toString());

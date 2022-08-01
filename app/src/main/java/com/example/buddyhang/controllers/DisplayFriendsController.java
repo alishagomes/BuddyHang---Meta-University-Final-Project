@@ -37,7 +37,7 @@ public class DisplayFriendsController extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().hide();
 
         recyclerView = findViewById(R.id.recycler_view_users);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

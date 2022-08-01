@@ -89,7 +89,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolderAdap
                             }
                         }
                         if (eventDaysSet.contains(holder.day.getText())) {
-                            holder.day.setTextColor(Color.RED);
+                            holder.day.setTextColor(Color.rgb(255,31,38));
                         }
 
                     }

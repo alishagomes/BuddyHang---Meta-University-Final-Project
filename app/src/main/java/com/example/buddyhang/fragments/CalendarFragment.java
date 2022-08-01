@@ -83,17 +83,7 @@ public class CalendarFragment extends Fragment implements CalendarAdapter.OnItem
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
-        declined_button = view.findViewById(R.id.declined_button);
-        // when decline button is clicked, it navigates to the events that have been declined
-        declined_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // navigate to the declinedEvents activity
-                Intent i = new Intent(getActivity(), DeclinedEventsController.class);
-                startActivity(i);
-                ((Activity) getActivity()).overridePendingTransition(0, 0);
-            }
-        });
+
         // setting up the recycler view for user hosted events
         recycler_view_users_posts = view.findViewById(R.id.userPosts);
         recycler_view_users_posts.setHasFixedSize(true);

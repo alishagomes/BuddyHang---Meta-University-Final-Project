@@ -11,6 +11,19 @@
     tools:context=".activities.RegisterActivity">
 
     <TextView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_sans_black"
+        android:gravity="center_horizontal"
+        android:paddingTop="0dp"
+        android:paddingBottom="60dp"
+        android:text="BuddyHang"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/textView2"
         android:layout_width="300dp"
         android:layout_height="wrap_content"

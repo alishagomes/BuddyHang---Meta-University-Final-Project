@@ -2,7 +2,6 @@
     <!-- Base application theme. -->
     <style name="Theme.BuddyHang" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimary">#24dada</item>
-
         <item name="colorPrimaryVariant">#3c3c3c</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">#3c3c3c</item>

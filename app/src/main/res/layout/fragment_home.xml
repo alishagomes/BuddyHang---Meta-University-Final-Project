@@ -5,32 +5,58 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:padding="10dp"
     tools:context=".controllers.DisplayFriendsController">
 
         <TextView
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:fontFamily="@font/poppins"
             android:text="Create an Event"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/poppins"
+            android:paddingBottom="10dp"
+            android:text="Share an event to your following" />
 
         <Button
             android:id="@+id/create_event"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="CREATE"
-            app:backgroundTint="#b5b5b5"
+            android:padding="10dp"
+            android:background="@drawable/round_button"
+            android:textColor="#F1F1F1"
+            app:backgroundTint="#000000"
             />
 
         <TextView
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
             android:fontFamily="@font/poppins"
-            android:text="Find Events from Friends You're Following"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:text="Find Private Events"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/poppins"
+            android:text="A list of events from your following" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_users_posts"
@@ -40,12 +66,23 @@
 
         <TextView
             android:id="@+id/textView9"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/recycler_view_users_posts"
+            android:layout_gravity="center_horizontal"
             android:fontFamily="@font/poppins"
             android:text="Find Public Events"
-            android:layout_below="@+id/recycler_view_users_posts"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/poppins"
+            android:text="A curated list of public events in your area" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ticketmasterEvents"
@@ -53,6 +90,9 @@
             android:layout_below="@+id/textView9"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"/>
+
+
+
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

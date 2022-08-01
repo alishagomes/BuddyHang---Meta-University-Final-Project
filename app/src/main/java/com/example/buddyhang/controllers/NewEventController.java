@@ -46,12 +46,7 @@ public class NewEventController extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View v = inflater.inflate(R.layout.titleview, null);
-        actionBar.setCustomView(v);
+        getSupportActionBar().hide();
 
         eventName = findViewById(R.id.eventName);
         eventLocation = findViewById(R.id.eventLocation);

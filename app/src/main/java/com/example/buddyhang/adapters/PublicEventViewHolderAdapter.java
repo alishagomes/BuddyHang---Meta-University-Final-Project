@@ -1,9 +1,11 @@
 package com.example.buddyhang.adapters;
 
 import android.content.Context;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.buddyhang.models.PublicEvent;
 import com.example.buddyhang.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -39,6 +42,8 @@ public class PublicEventViewHolderAdapter extends RecyclerView.Adapter<PublicEve
 
         holder.text_title.setText(events.get(position).getName());
         holder.text_source.setText(events.get(position).getUrl());
+        // loading the image into the imageview
+        Picasso.get().load(events.get(position).getImageUrl()).into(holder.event_image);
 
     }
 
@@ -51,6 +56,7 @@ public class PublicEventViewHolderAdapter extends RecyclerView.Adapter<PublicEve
 
         TextView text_source;
         TextView text_title;
+        ImageView event_image;
 
 
 
@@ -59,6 +65,9 @@ public class PublicEventViewHolderAdapter extends RecyclerView.Adapter<PublicEve
 
             text_source = itemView.findViewById(R.id.text_source);
             text_title = itemView.findViewById(R.id.text_title);
+            text_source.setMovementMethod(LinkMovementMethod.getInstance());
+            event_image = itemView.findViewById(R.id.event_image);
+
 
         }
     }
